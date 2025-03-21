@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.ktor)
     kotlin("plugin.serialization") version "1.9.0" // Add this plugin
+    application
 }
 
 group = "com.adev"
@@ -16,6 +17,12 @@ application {
 
 repositories {
     mavenCentral()
+}
+
+ktor {
+    fatJar {
+        archiveFileName.set("android-news-all.jar")
+    }
 }
 
 dependencies {
