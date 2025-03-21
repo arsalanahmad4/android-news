@@ -1,11 +1,15 @@
+package scrapper
+
 import com.microsoft.playwright.*
 import com.microsoft.playwright.options.WaitForSelectorState
+import data.NewsArticle
 
+//scraper for the web page : https://developer.android.com/news
 class AndroidDeveloperScraper {
 
-    suspend fun scrapeData(): List<Map<String, String>> {
+    suspend fun scrapeData(): List<NewsArticle> {
         val url = "https://developer.android.com/news"
-        val newsArticles: MutableList<Map<String, String>> = mutableListOf()
+        val newsArticles: MutableList<NewsArticle> = mutableListOf()
 
         // Initialize Playwright
         Playwright.create().use { playwright ->
@@ -38,12 +42,12 @@ class AndroidDeveloperScraper {
 
                         if (title != null && fullLink != null && description != null && date != null && imageUrl != null) {
                             newsArticles.add(
-                                mapOf(
-                                    "title" to title,
-                                    "link" to fullLink,
-                                    "description" to description,
-                                    "date" to date,
-                                    "imageUrl" to imageUrl
+                                NewsArticle(
+                                    title = title,
+                                    link = fullLink,
+                                    description = description,
+                                    date = date,
+                                    imageUrl = imageUrl
                                 )
                             )
                         }

@@ -1,8 +1,7 @@
-
 plugins {
     alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.ktor)
-
+    kotlin("plugin.serialization") version "1.9.0" // Add this plugin
 }
 
 group = "com.adev"
@@ -20,23 +19,23 @@ repositories {
 }
 
 dependencies {
+    // Ktor server dependencies
     implementation(libs.ktor.server.core)
     implementation(libs.ktor.server.netty)
-    implementation(libs.logback.classic)
-    implementation(libs.ktor.server.core)
-
-    // Add these for Content Negotiation and Logging
     implementation(libs.ktor.server.content.negotiation)
     implementation(libs.ktor.serialization.kotlinx.json)
     implementation(libs.ktor.server.call.logging)
 
-    // Add these for Jsoup and Logback
-    implementation(libs.jsoup)
+    // Logging
     implementation(libs.logback.classic)
 
+    // Playwright for web scraping
     implementation("com.microsoft.playwright:playwright:1.30.0")
 
+    // Kotlinx Serialization
+    implementation(libs.kotlinx.serialization.json)
 
+    // Testing
     testImplementation(libs.ktor.server.test.host)
     testImplementation(libs.kotlin.test.junit)
 }
