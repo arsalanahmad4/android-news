@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: android-news
+    runtime: java
+    buildCommand: ./gradlew buildFatJar
+    startCommand: java -jar build/libs/android-news-all.jar
+    env: java
+#    envVars:
+#      - key: YOUR_ENV_VAR
+#        value: your-value
