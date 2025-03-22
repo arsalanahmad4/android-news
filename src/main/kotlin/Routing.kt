@@ -1,13 +1,14 @@
 package com.adev
 
 import NewsArticlesService
-import data.NewsArticle
+import model.NewsArticle
 import io.ktor.http.*
 import scrapper.AndroidDeveloperScraper
 import io.ktor.server.application.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
+import service.LatestUpdatesService
 
 fun Application.configureRouting() {
     // Define your routes
@@ -34,6 +35,18 @@ fun Application.configureRouting() {
             // Update the news list in the service
             NewsArticlesService.createNewsList(updatedNewsList)
             call.respond(HttpStatusCode.OK, "News list updated successfully")
+        }
+
+        get("/scrape-latest-updates") {
+            val scraper = AndroidDeveloperScraper()
+            val categorizedUpdates = scraper.scrapeLatestUpdates()
+            LatestUpdatesService.addOrUpdateScrapedData(categorizedUpdates)
+            call.respond(categorizedUpdates)
+        }
+
+        get("/latest-updates") {
+            // Retrieve the stored news articles from the service
+            call.respond(LatestUpdatesService.getLatestUpdates())
         }
     }
 }

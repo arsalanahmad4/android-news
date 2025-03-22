@@ -1,4 +1,4 @@
-import data.NewsArticle
+import model.NewsArticle
 
 object NewsArticlesService {
 
