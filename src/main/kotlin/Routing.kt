@@ -13,9 +13,6 @@ import service.LatestUpdatesService
 fun Application.configureRouting() {
     // Define your routes
     routing {
-        get("/") {
-            call.respondText("Hello, Ktor with Content Negotiation and Logging!")
-        }
 
         get("/scrape-news") {
             val scraper = AndroidDeveloperScraper()
